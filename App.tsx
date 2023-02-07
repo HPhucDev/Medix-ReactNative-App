@@ -4,7 +4,11 @@
  *
  * @format
  */
-
+import {
+  createNavigationContainerRef,
+  NavigationContainer,
+  StackActions,
+} from '@react-navigation/native';
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
@@ -28,6 +32,13 @@ import {
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
+
+export const navigationRef = createNavigationContainerRef();
+export const navigate = (name: string, params?: any) => {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate(name as never, params as never);
+  }
+};
 
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
